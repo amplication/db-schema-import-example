@@ -6,3 +6,44 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Event {
+  attendees   Attendee[]
+  description String
+  endDate     DateTime
+  id          String     @id @default(cuid())
+  location    String
+  name        String
+  sessions    Session[]
+  startDate   DateTime
+}
+
+model Attendee {
+  email   String   @unique
+  event   Event    @relation(fields: [eventId], references: [id])
+  eventId String
+  id      String   @id @default(cuid())
+  name    String
+  tikets  Ticket[]
+}
+
+model Ticket {
+  attendee   Attendee             @relation(fields: [attendeeId], references: [id])
+  attendeeId String
+  id         String               @id @default(cuid())
+  ticketType EnumTicketTicketType
+}
+
+model Session {
+  event   Event    @relation(fields: [eventId], references: [id])
+  eventId String
+  id      String   @id @default(cuid())
+  name    String
+  speaker String
+  time    DateTime
+}
+
+enum EnumTicketTicketType {
+  FREE
+  PAID
+}

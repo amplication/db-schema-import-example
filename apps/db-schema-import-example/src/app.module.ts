@@ -1,6 +1,10 @@
 import { Module, Scope } from "@nestjs/common";
 import { APP_INTERCEPTOR } from "@nestjs/core";
 import { MorganInterceptor, MorganModule } from "nest-morgan";
+import { EventModule } from "./event/event.module";
+import { AttendeeModule } from "./attendee/attendee.module";
+import { TicketModule } from "./ticket/ticket.module";
+import { SessionModule } from "./session/session.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -12,6 +16,10 @@ import { GraphQLModule } from "@nestjs/graphql";
 @Module({
   controllers: [],
   imports: [
+    EventModule,
+    AttendeeModule,
+    TicketModule,
+    SessionModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,
